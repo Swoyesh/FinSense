@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Classifier</title>
+</head>
+    <h2>Upload Your Files</h2>
+    <form action="/predict_budget" method="post" enctype="multipart/form-data">
+        <input type="file" name="files" id="files" accept=".xls" multiple required>
+        <button type="submit">Classify & Budget</button>
+    </form>
+
+    {% if results %}
+    <h3>Prediction Results</h3>
+    <table border="1">
+        <tr>
+            <th>Description</th>
+            <th>Prediction</th>
+            <th>Confidence</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{result.text}}</td>
+            <td>{{result.category}}</td>
+            <td>{{result.confidence}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <!-- <br><br>
+    <form action="../budget" method="post" enctype="multipart/form-data">
+        <input type="file" name="files" id="files" accept=".xls" multiple required>
+        <button type="submit">Create Budget</button>
+    </form>
+    <br>
+    {% if bud_results %}
+    <h2>NEW DATA</h2>
+    <ul>
+    {% for result in results %}
+        <li>{{ result }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %} -->
+    
+</body>
+</html>
