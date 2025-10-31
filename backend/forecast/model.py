@@ -8,16 +8,26 @@ import time
 warnings.filterwarnings('ignore')
 
 def check_stationary(timeseries, title):
-    print(f"Result of Dickey-Fuller Test for {title}: ")
-    if len(timeseries) < 3:
+    try:
+        print(f"Result of Dickey-Fuller Test for {title}: ")
+        # require at least 3 observations to avoid statsmodels ValueError (you had <3)
+        if timeseries is None or len(timeseries) < 3:
+            print(f"⚠️ Skipping ADF for {title}: insufficient length ({0 if timeseries is None else len(timeseries)})")
+            return False
+
+        dftest = adfuller(timeseries, autolag="AIC")
+        dfoutput = pd.Series(dftest[0:4], index=["Test Statistics", "p-value", "#Lags Used", "Number of Obersvations Used"])
+        for key, value in dftest[4].items():
+            dfoutput[f'Critical value ({key})'] = value
+
+        print(dfoutput)
+        print("Is Stationary:", dftest[1] <= 0.05)
+        return dftest[1] <= 0.05
+
+    except Exception as e:
+        # Log and treat as non-stationary (so model selection can continue without crashing)
+        print(f"⚠️ ADF check failed for {title}: {e}")
         return False
-    dftest = adfuller(timeseries, autolag = "AIC")
-    dfoutput = pd.Series(dftest[0:4], index = ["Test Statistics", "p-value", "#Lags Used", "Number of Obersvations Used"])
-    for key, value in dftest[4].items():
-        dfoutput['Critical value (%s)'%key] = value
-    print(dfoutput)
-    print("Is Stationary:", dftest[1] <= 0.05)
-    return dftest[1] <= 0.05
 
 def find_best_arima_model(data, max_p = 3, max_d = 3, max_q = 3):
     best_aic = np.inf
@@ -27,19 +37,32 @@ def find_best_arima_model(data, max_p = 3, max_d = 3, max_q = 3):
         for d in range(max_d + 1):
             for q in range(max_q + 1):
                 try:
+                    # require at least some minimal size: ARIMA(p,d,q) fitting will fail on tiny samples
+                    if len(data) < (p + d + q + 1):
+                        continue
                     arima_model = ARIMA(data, order = (p, d, q))
                     fit_model = arima_model.fit()
                     aic = fit_model.aic
-    
+
                     if aic < best_aic:
                         best_aic = aic
                         best_order = (p, d, q)
-                except:
+                except Exception:
                     continue
-    
+
     return best_order, best_aic
 
 def forecast_arima(data, order, steps = 1):
+    if order is None:
+        # fallback: return mean forecast and trivial conf_int
+        mean_val = data.mean() if len(data) > 0 else 0.0
+        import pandas as pd
+        forecast = pd.Series([mean_val])
+        conf_int = pd.DataFrame([[data.min() if len(data)>0 else 0.0, data.max() if len(data)>0 else 0.0]], columns=["lower", "upper"])
+        class Dummy:
+            pass
+        return forecast, conf_int, Dummy()
+
     arima_model = ARIMA(data, order=order)
     fitted_model = arima_model.fit()
     forecast = fitted_model.forecast(steps = steps)

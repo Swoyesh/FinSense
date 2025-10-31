@@ -4,11 +4,11 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-nltk.download('averaged_perceptron_tagger')
+# nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('wordnet')
+# nltk.download('omw-1.4')
+# nltk.download('averaged_perceptron_tagger')
 
 from nltk.tokenize import word_tokenize
 stop_words = set(stopwords.words('english'))
@@ -20,9 +20,9 @@ def textPreprocessing(text):
     text = word_tokenize(text)
     return text
 
-def stopwordRemoval(text):
-    text = [word for word in text if word not in stop_words]
-    return text
+# def stopwordRemoval(text):
+#     text = [word for word in text if word not in stop_words]
+#     return text
 
 def lemmatization(text):
     text = [lemmatizer.lemmatize(word) for word in text]
@@ -35,7 +35,7 @@ def posTagging(text):
 
 def cleanTextPipeline(text):
     text = textPreprocessing(text)
-    text = stopwordRemoval(text)
+    # text = stopwordRemoval(text)
     text = lemmatization(text)
     text = posTagging(text)
     text = ' '.join(text)

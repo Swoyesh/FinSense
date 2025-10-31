@@ -22,3 +22,6 @@ venv/
 
 # Ignore transaction classifier checkpoints
 transaction classifier/checkpoint-*
+models/
+
+intentClassifier.pkl

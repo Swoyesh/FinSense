@@ -10,8 +10,8 @@ async def forecastTransactions(user_id: int, forecast_month: str, df: pd.DataFra
         bdt = Budget(
             user_id = int(user_id),
             month = str(forecast_month),
-            allocated = float(row['B_Amount']),
-            forecast = float(row['F_Amount']),
+            allocated = float(row['Budget_Amount']),
+            forecast = float(row['Forecasted_Amount']),
             category = str(row['Category']),
         )
 

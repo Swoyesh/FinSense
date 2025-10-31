@@ -44,7 +44,7 @@ class User(Base):
     budgets = relationship("Budget", back_populates = "user", cascade = "all, delete-orphan")
 
 class Transaction(Base):
-    __tablename__ = "transactions"
+    __tablename__ = "transactions" 
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
@@ -76,6 +76,16 @@ class Budget(Base):
 
     user = relationship("User", back_populates = "budgets")
 
+class ChatHistory(Base):
+    __tablename__ = "chat_history"
+
+    id = Column(Integer, primary_key = True, index = True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable = True)
+
+    role = Column(String, nullable=False)
+    text = Column(String, nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
 async def create_database():
     try:
         admin_conn = await asyncpg.connect(f"postgresql://{POSTGRES_USER}:{FINAL_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/postgres")
@@ -106,8 +116,6 @@ async def create_tables():
     except Exception as e:
         logger.error("Tables could not be created!!")
         raise
-
-# async def insert_vals
 
 async def db_setup():
     await create_database()
