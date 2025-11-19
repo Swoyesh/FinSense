@@ -1,0 +1,172 @@
+# =============================================================================
+# FINSENSE - REQUIREMENTS.TXT
+# Production-Ready Dependency Management
+# =============================================================================
+
+# =============================================================================
+# CORE WEB FRAMEWORK & ASYNC SUPPORT
+# =============================================================================
+fastapi==0.115.14
+uvicorn==0.35.0
+starlette==0.46.2
+pydantic==2.11.4
+pydantic-settings==2.10.1
+
+# =============================================================================
+# DATABASE & ORM
+# =============================================================================
+SQLAlchemy==2.0.41
+asyncpg==0.30.0
+aiosqlite==0.21.0
+alembic>=1.11.0  # For database migrations (if needed in future)
+
+# =============================================================================
+# AUTHENTICATION & SECURITY
+# =============================================================================
+python-jose==3.5.0
+passlib==1.7.4
+bcrypt==4.3.0
+python-multipart==0.0.20
+email-validator==2.2.0
+
+# =============================================================================
+# DATA PROCESSING & ANALYSIS
+# =============================================================================
+pandas==2.3.0
+numpy==2.3.4
+scipy==1.15.3
+scikit-learn==1.7.0
+statsmodels==0.14.4
+openpyxl==3.1.5
+xlrd==2.0.1
+PyMuPDF==1.26.4
+pypdf==6.0.0
+
+# =============================================================================
+# MACHINE LEARNING & NLP
+# =============================================================================
+# Transformer Models & Tokenization
+transformers==4.57.1
+torch==2.8.0+cpu
+torchvision==0.23.0+cpu
+torchaudio==2.7.1+cu118
+torch-geometric==2.6.1
+tokenizers==0.22.1
+safetensors==0.5.3
+sentence-transformers==5.1.1
+
+# Hugging Face & Model Hub
+huggingface-hub==0.35.3
+datasets==4.3.0
+
+# NLP Libraries
+spacy==3.8.7
+spacy-legacy==3.0.12
+spacy-loggers==1.0.5
+nltk==3.9.1
+
+# Time Series Forecasting
+statsforecast==2.0.1
+coreforecast==0.0.16
+utilsforecast==0.2.12
+
+# LLM & RAG Support
+langchain==1.0.5
+langchain-core==1.0.5
+langchain-community==0.3.29
+langchain-openai==1.0.2
+langchain-pinecone==0.2.13
+langchain-text-splitters==0.3.11
+langgraph==1.0.3
+langgraph-checkpoint==3.0.1
+langgraph-prebuilt==1.0.4
+langsmith==0.4.28
+
+# Model Serialization
+joblib==1.5.1
+pickle5>=0.0.11  # For backwards compatibility
+
+# =============================================================================
+# LLM API CLIENTS
+# =============================================================================
+openai==2.4.0
+groq>=0.9.0  # Ensure latest Groq SDK
+
+# =============================================================================
+# VECTOR DATABASE & EMBEDDINGS
+# =============================================================================
+pinecone==7.3.0
+pinecone-plugin-assistant==1.8.0
+pinecone-plugin-interface==0.0.7
+
+# =============================================================================
+# VISUALIZATION & PLOTTING
+# =============================================================================
+matplotlib==3.10.3
+plotly==6.1.2
+seaborn==0.13.2
+Pillow==11.2.1
+
+# =============================================================================
+# ENVIRONMENT & CONFIGURATION
+# =============================================================================
+python-dotenv==1.1.1
+pyyaml==6.0.2
+
+# =============================================================================
+# ASYNC & HTTP
+# =============================================================================
+aiohttp==3.12.12
+aiohttp-retry==2.9.1
+aiosignal==1.3.2
+aiohappyeyeballs==2.6.1
+httpx==0.28.1
+httpcore==1.0.9
+requests==2.32.5
+requests-toolbelt==1.0.0
+
+# =============================================================================
+# UTILITIES & HELPERS
+# =============================================================================
+tenacity==9.1.2  # Retry logic for API calls
+tqdm==4.67.1  # Progress bars
+rich==14.0.0  # Rich terminal output
+pytz==2025.2  # Timezone support
+python-dateutil==2.9.0.post0
+typing-extensions==4.14.0
+
+# =============================================================================
+# DEVELOPMENT & TESTING
+# =============================================================================
+pytest==8.4.2
+pytest-asyncio==1.2.0
+responses==0.18.0
+
+# =============================================================================
+# OPTIONAL: Deep Learning (commented out if not needed for production)
+# =============================================================================
+# tensorflow==2.19.0
+# keras==3.10.0
+# tf_keras==2.19.0
+# tensorboard==2.19.0
+
+# =============================================================================
+# OPTIONAL: Advanced NLP (commented out if not core to MVP)
+# =============================================================================
+# en_core_web_sm==3.8.0
+# wordcloud==1.9.4
+
+# =============================================================================
+# DEPENDENCY NOTES
+# =============================================================================
+# - Removed duplicate/redundant packages (e.g., typer-slim, distro)
+# - Grouped by functional area for maintainability
+# - Pinned versions for reproducibility
+# - CPU-only torch build (torch==2.8.0+cpu) for lightweight deployment
+# - Optional dependencies commented out (TensorFlow, advanced NLP)
+#
+# To install:
+#   pip install -r requirements.txt
+#
+# To freeze current environment:
+#   pip freeze > requirements.txt

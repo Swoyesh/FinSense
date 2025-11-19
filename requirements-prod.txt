@@ -1,0 +1,64 @@
+# =============================================================================
+# FINSENSE - PRODUCTION DEPENDENCIES (LIGHTWEIGHT)
+# Minimal, optimized for deployment
+# Use this for production Docker builds
+# =============================================================================
+
+# Core Framework
+fastapi==0.115.14
+uvicorn==0.35.0
+starlette==0.46.2
+pydantic==2.11.4
+pydantic-settings==2.10.1
+python-multipart==0.0.20
+
+# Database
+SQLAlchemy==2.0.41
+asyncpg==0.30.0
+
+# Authentication
+python-jose==3.5.0
+passlib==1.7.4
+bcrypt==4.3.0
+
+# Data Processing
+pandas==2.3.0
+numpy==2.3.4
+openpyxl==3.1.5
+
+# ML & NLP
+transformers==4.57.1
+torch==2.8.0+cpu
+tokenizers==0.22.1
+sentence-transformers==5.1.1
+scikit-learn==1.7.0
+statsmodels==0.14.4
+statsforecast==2.0.1
+
+# LLM & RAG
+langchain==1.0.5
+langchain-core==1.0.5
+langchain-community==0.3.29
+langchain-openai==1.0.2
+langchain-pinecone==0.2.13
+openai==2.4.0
+groq>=0.9.0
+
+# Vector Database
+pinecone==7.3.0
+
+# HTTP & Async
+httpx==0.28.1
+requests==2.32.5
+aiohttp==3.12.12
+
+# Utilities
+python-dotenv==1.1.1
+pyyaml==6.0.2
+tenacity==9.1.2
+tqdm==4.67.1
+joblib==1.5.1
+
+# Visualization
+matplotlib==3.10.3
+Pillow==11.2.1
